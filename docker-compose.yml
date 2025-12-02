@@ -1,0 +1,72 @@
+version: "3.9"
+
+services:
+  mongodb:
+    build: ./mongo
+    container_name: mongo_service
+    env_file:
+      - ./mongo/.env
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+      - ./mongo/init:/docker-entrypoint-initdb.d
+    networks:
+      - app_net
+
+  api:
+    build: ./api
+    container_name: api_service
+    env_file:
+      - ./api/.env
+    depends_on:
+      - mongodb
+    ports:
+      - "3000:3000"
+    networks:
+      - app_net
+
+  frontend:
+    build: ./frontend
+    container_name: frontend_service
+    env_file:
+      - ./frontend/.env
+    depends_on:
+      - api
+    ports:
+      - "8080:8080"
+    networks:
+      - app_net
+
+  puppeteer:
+    build: ./puppeteer-tests
+    container_name: puppeteer_service
+    env_file:
+      - ./puppeteer-tests/.env
+    depends_on:
+      - frontend
+      - api
+    networks:
+      - app_net
+
+  puppeteer-tests:
+    build:
+      context: ./puppeteer
+      dockerfile: Dockerfile
+    container_name: puppeteer-tests
+    depends_on:
+      - frontend
+      - api
+    env_file:
+      - ./puppeteer/.env
+    volumes:
+      - ./puppeteer/reports:/usr/src/app/reports
+    networks:
+      - app_net
+
+volumes:
+  mongo_data:
+
+networks:
+  app_net:
+    driver: bridge

@@ -1,0 +1,10 @@
+{
+    "name": "frontend-books",
+    "version": "1.0.0",
+    "description": "Frontend simple CRUD para libros",
+    "scripts": {},
+    "dependencies": {
+        "http-server": "^14.1.1"
+    },
+    "type": "module"
+}

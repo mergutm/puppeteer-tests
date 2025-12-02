@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Actualizar Libro</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <h1>Actualizar Libro</h1>
+    <a href="index.html">Volver</a>
+
+    <form id="form">
+        <input type="text" id="id" placeholder="ID del libro" required><br>
+        <input type="text" id="title" placeholder="Nuevo título"><br>
+        <input type="text" id="author" placeholder="Nuevo autor"><br>
+        <input type="number" id="year" placeholder="Nuevo año"><br>
+        <button type="submit">Actualizar</button>
+    </form>
+
+    <script type="module">
+        import { updateBook } from "./api.js";
+
+        const form = document.getElementById("form");
+
+        form.addEventListener("submit", async e => {
+            e.preventDefault();
+
+            const id = document.getElementById("id").value;
+            const data = {};
+
+            const t = document.getElementById("title").value;
+            const a = document.getElementById("author").value;
+            const y = document.getElementById("year").value;
+
+            if (t) data.title = t;
+            if (a) data.author = a;
+            if (y) data.year = parseInt(y);
+
+            await updateBook(id, data);
+            alert("Libro actualizado");
+        });
+    </script>
+
+</body>
+
+</html>

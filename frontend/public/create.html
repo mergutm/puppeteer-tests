@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Crear Libro</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <h1>Crear Libro</h1>
+    <a href="index.html">Volver</a>
+
+    <form id="form">
+        <input type="text" id="title" placeholder="Título" required><br>
+        <input type="text" id="author" placeholder="Autor" required><br>
+        <input type="number" id="year" placeholder="Año" required><br>
+        <button  id ="btnSave" type="submit">Crear</button>
+    </form>
+
+    <script type="module">
+        import { createBook } from "./api.js";
+
+        const form = document.getElementById("form");
+
+        form.addEventListener("submit", async e => {
+            e.preventDefault();
+
+            const book = {
+                title: document.getElementById("title").value,
+                author: document.getElementById("author").value,
+                year: parseInt(document.getElementById("year").value)
+            };
+
+            await createBook(book);
+            alert("Libro creado");
+            form.reset();
+        });
+    </script>
+
+</body>
+
+</html>
