@@ -1,7 +1,9 @@
 
 
 
-    const API_INSERT = "http://localhost:3000/api/books";
+    //const API_INSERT = "http://localhost:3000/api/books";
+    const API_INSERT = "http://api:3000/api/books";
+    
 
     document.getElementById("insert-form").addEventListener("submit", async (e) => {
         e.preventDefault();

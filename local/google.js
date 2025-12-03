@@ -1,14 +1,3 @@
-# Pruebas E2E
-
-E2E, en el contexto de pruebas de software, significa "End-to-End" (de extremo a extremo).
-Es un tipo de prueba funcional que valida el flujo completo de una aplicación desde el principio hasta el final, simulando la experiencia real de un usuario. 
-
-
-
-
-# Archivo index.js
-
-```javascript
 const puppeteer = require('puppeteer');
 
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
@@ -37,6 +26,8 @@ const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
     // El selector 'textarea[name="q"]' apunta a la barra de búsqueda principal de Google.
     await page.type('textarea[name="q"]', 'ejemplo de puppeteer');
 
+    await page.screenshot({ path: '01-captura-google.png', fullPage: true });
+
     // Presiona la tecla Enter para realizar la búsqueda.
     await page.keyboard.press('Enter');
 
@@ -51,60 +42,3 @@ const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
     // Cierra el navegador.
     await browser.close();
 })();
-
-```
-
-# Archivo package.json
-
-```json
-{
-  "dependencies": {
-    "puppeteer": "^24.32.0"
-  },
-  "name": "documentos",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "google": "node google.js",
-    "github": "node github.js"
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
-}
-```
-
-# Instalación de dependencias
-
-Ejecutar `npm install`  en la terminal. 
-En este ejemplo, puppeteer instalará tanto el navegador chromium como las dependencias necesarias para que funcione el proyecto.
-
-
-## Ejecutar prueabs:
-
-
-## Pruebas en página de github
-
-```bash
-npm run github
-```
-
-![01-captura-repo.png](01-captura-repo.png)
-
-![02-captura-evento.png](02-captura-evento.png)
-
-![04-captura-pagina_resultados.png](04-captura-pagina_resultados.png)
-
-
-
-## Pruebas en página de google
-
-```bash
-npm run google
-```
-
-
-
-![01-captura-google.png](01-captura-google.png)

@@ -37,4 +37,47 @@ El `docker-compose.yml` coordina cuatro contenedores que forman el proyecto:
 
 https://pptr.dev/
 
-https://latenode.com/blog/web-automation-scraping/puppeteer-fundamentals-setup/installing-and-configuring-puppeteer-solving-common-dependency-and-chromium-issues
+
+# Prueba dentro del contenedor:
+
+```bash
+docker compose up --build -d 
+```
+
+##  Entrar al contenedor `pptr_container` usando:
+```bash
+docker exec -it pptr_container sh
+```
+
+## instalar las dependencias dentro de package.json
+```bash
+npm install
+```
+
+# Ejecutar prueba
+
+Recordar que es la entrada declarada en package.json
+```bash
+npm run e2e
+```
+
+Podrá ver los archivos
+
+
+### Index de la página
+![puppeteer/reports/01_index_cargado.png](puppeteer/reports/01_index_cargado.png)
+
+
+
+### Página insertando un libro
+![puppeteer/reports/02_datos_cargados_a_insertar.png](puppeteer/reports/02_datos_cargados_a_insertar.png)
+
+
+### Index de la página mostrando libro insertado
+![puppeteer/reports/03_index_despues_de_insertar.png](puppeteer/reports/03_index_despues_de_insertar.png)
+
+
+
+# Para la ejecución en la máquina local usar:
+
+<a href='./local'> Ejecución sin contenedor </a>

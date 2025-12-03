@@ -46,10 +46,8 @@ async function runTests() {
 
     try {
         // Cargar página principal
-        addToReport("Cargando interfaz...");
-        //page.on("console", msg => console.log("Browser log:", msg.text()));
-        //page.on("pageerror", err => console.log("Browser ERROR:", err));
-
+        addToReport("01-Cargando interfaz ... (ok)");
+        
         await page.goto(`${FRONTEND_URL}/index.html`, { waitUntil: "networkidle0" });
         await wait(1050);
         await capture(page, "01_index_cargado");
@@ -58,7 +56,7 @@ async function runTests() {
         await page.waitForSelector("#books-table");
 
         // Insertar un libro
-        addToReport("Insertando un nuevo libro...");
+        addToReport("02-Insertando un nuevo libro... (ok)");
 
         await page.goto(`${FRONTEND_URL}/insert.html`, { waitUntil: "networkidle0" });
 
@@ -67,26 +65,16 @@ async function runTests() {
         await page.type("#year", "2025");
 
         await capture(page, "02_datos_cargados_a_insertar");
-        await page.click("button");
-        //await page.click("#btnSave");
+        await page.click("button");        
         await wait(500); // usando función wait()
 
-        // await page.goto(`${FRONTEND_URL}/index.html`, { waitUntil: "networkidle0" });
-
-        // await page.waitForFunction(() => {
-        //     const rows = document.querySelectorAll("#books-table-body tr");
-        //     return rows.length > 0;
-        // }, { timeout: 5000 }).catch(() => {
-        //     console.log("No se cargaron los libros ");
-        // });
-
         await page.waitForSelector("#books-table-body");
-        addToReport("Captura antes de verificar inserción " + `${FRONTEND_URL}/index.html`);
+        addToReport("03-Captura antes de verificar inserción " + `${FRONTEND_URL}/index.html`);
         await capture(page, "03_index_despues_de_insertar");
         
         // Finalizar reporte
         fs.writeFileSync(`${REPORT_DIR}/report.txt`, report);
-        addToReport("Reporte generado en /reports/report.txt");
+        addToReport("04-Reporte generado en /reports/report.txt");
 
     } catch (err) {
         console.error("ERROR EN PRUEBAS:", err);

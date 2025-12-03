@@ -1,0 +1,3 @@
+01-Cargando interfaz ... (ok)
+02-Insertando un nuevo libro... (ok)
+03-Captura antes de verificar inserción http://frontend:8080/index.html

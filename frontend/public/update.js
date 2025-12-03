@@ -1,4 +1,5 @@
-const API_UPDATE = "http://localhost:3000/api/books";
+//const API_UPDATE = "http://localhost:3000/api/books";
+const API_UPDATE = "http://api:3000/api/books";
 
 
 const params = new URLSearchParams(window.location.search);

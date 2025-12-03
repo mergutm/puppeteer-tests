@@ -1,0 +1,18 @@
+{
+  "dependencies": {
+    "puppeteer": "^24.32.0"
+  },
+  "name": "documentos",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "google": "node google.js",
+    "github": "node github.js",
+    "libros": "node libros.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

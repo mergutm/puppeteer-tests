@@ -12,13 +12,12 @@ ENV PUPPETEER_SKIP_DOWNLOAD=true
 USER chrome
 
 # Copiar package.json con permisos correctos
-COPY --chown=chrome:chrome package.json package-lock.json* ./
+COPY --chown=chrome:chrome package.json ./
 
 # Instalar dependencias
 RUN npm install
 
 # Copiar código de pruebas
-COPY --chown=chrome:chrome e2e/ ./e2e/
 COPY --chown=chrome:chrome .env .
 
 # Crear carpeta de reportes y permisos
