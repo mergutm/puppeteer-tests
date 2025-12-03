@@ -38,29 +38,32 @@ services:
     networks:
       - app_net
 
-  puppeteer:
-    build: ./puppeteer-tests
-    container_name: puppeteer_service
-    env_file:
-      - ./puppeteer-tests/.env
-    depends_on:
-      - frontend
-      - api
-    networks:
-      - app_net
+  # puppeteer:
+  #   build: ./puppeteer-tests
+  #   container_name: puppeteer_service
+  #   env_file:
+  #     - ./puppeteer-tests/.env
+  #   depends_on:
+  #     - frontend
+  #     - api
+  #   networks:
+  #     - app_net
 
   puppeteer-tests:
     build:
       context: ./puppeteer
       dockerfile: Dockerfile
-    container_name: puppeteer-tests
+    container_name: pptr_container 
     depends_on:
       - frontend
       - api
+    tty: true
+    stdin_open: true
     env_file:
       - ./puppeteer/.env
     volumes:
-      - ./puppeteer/reports:/usr/src/app/reports
+      - ./puppeteer:/usr/src/app
+      #- ./puppeteer/reports:/usr/src/app/reports
     networks:
       - app_net
 

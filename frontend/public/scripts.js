@@ -1,17 +1,17 @@
 
 
-    const API_URL = "http://localhost:3000/api/books";
+const API_URL = "http://api:3000/api/books";
 
-    async function loadBooks() {
-        const res = await fetch(API_URL);
-        const books = await res.json();
-        const tbody = document.getElementById("books-table-body");
-        tbody.innerHTML = "";
+async function loadBooks() {
+  const res = await fetch(API_URL);
+  const books = await res.json();
+  const tbody = document.getElementById("books-table-body");
+  tbody.innerHTML = "";
 
-        books.forEach(book => {
-            console.log(book);
-            const tr = document.createElement("tr");
-            tr.innerHTML = `
+  books.forEach(book => {
+    console.log(book);
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
       <td>${book.title}</td>
       <td>${book.author}</td>
       <td>${book.year}</td>
@@ -23,14 +23,16 @@
           <i class="fa-solid fa-trash"></i>
         </button>
       </td>`;
-            tbody.appendChild(tr);
-        });
-    }
+    tbody.appendChild(tr);
+  });
+}
 
-    async function deleteBook(id) {
-        if (!confirm("¿Eliminar este libro?")) return;
-        await fetch(`${API_URL}/${id}`, { method: "DELETE" });
-        loadBooks();
-    }
-
-    loadBooks();
+async function deleteBook(id) {
+  if (!confirm("¿Eliminar este libro?")) return;
+  await fetch(`${API_URL}/${id}`, { method: "DELETE" });
+  loadBooks();
+}
+window.onload = function () {
+  console.log("window.onload: The entire page and all resources are fully loaded.");
+  loadBooks();
+}
