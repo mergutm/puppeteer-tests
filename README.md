@@ -33,4 +33,8 @@ El `docker-compose.yml` coordina cuatro contenedores que forman el proyecto:
 * app_net permite que todos los servicios se comuniquen entre sí.
 
 
+# Referencias
+
 https://pptr.dev/
+
+https://latenode.com/blog/web-automation-scraping/puppeteer-fundamentals-setup/installing-and-configuring-puppeteer-solving-common-dependency-and-chromium-issues

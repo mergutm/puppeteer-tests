@@ -21,6 +21,9 @@ services:
       - ./api/.env
     depends_on:
       - mongodb
+    volumes:
+      - ./api:/usr/src/app
+      - /usr/src/app/node_modules
     ports:
       - "3000:3000"
     networks:
@@ -31,6 +34,8 @@ services:
     container_name: frontend_service
     env_file:
       - ./frontend/.env
+    volumes:
+      - ./frontend:/usr/src/app
     depends_on:
       - api
     ports:
@@ -38,17 +43,7 @@ services:
     networks:
       - app_net
 
-  # puppeteer:
-  #   build: ./puppeteer-tests
-  #   container_name: puppeteer_service
-  #   env_file:
-  #     - ./puppeteer-tests/.env
-  #   depends_on:
-  #     - frontend
-  #     - api
-  #   networks:
-  #     - app_net
-
+  
   puppeteer-tests:
     build:
       context: ./puppeteer

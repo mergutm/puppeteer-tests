@@ -45,94 +45,48 @@ async function runTests() {
     };
 
     try {
-        // 1. Cargar página principal
+        // Cargar página principal
         addToReport("Cargando interfaz...");
         //page.on("console", msg => console.log("Browser log:", msg.text()));
         //page.on("pageerror", err => console.log("Browser ERROR:", err));
 
         await page.goto(`${FRONTEND_URL}/index.html`, { waitUntil: "networkidle0" });
         await wait(1050);
-        await capture(page, "01_home_loaded");
+        await capture(page, "01_index_cargado");
 
         // Esperar a que la tabla esté lista
         await page.waitForSelector("#books-table");
 
-        // 2. Insertar un libro
+        // Insertar un libro
         addToReport("Insertando un nuevo libro...");
 
         await page.goto(`${FRONTEND_URL}/insert.html`, { waitUntil: "networkidle0" });
 
-        await page.type("#title", "Puppeteer Testing Book");
+        await page.type("#title", "Libro PPTR");
         await page.type("#author", "QA Bot");
         await page.type("#year", "2025");
 
-        await capture(page, "02_before_create");
-
-        //await page.click("button");
-        await page.click("#btnSave");
+        await capture(page, "02_datos_cargados_a_insertar");
+        await page.click("button");
+        //await page.click("#btnSave");
         await wait(500); // usando función wait()
 
-        await page.goto(`${FRONTEND_URL}/index.html`, { waitUntil: "networkidle0" });
+        // await page.goto(`${FRONTEND_URL}/index.html`, { waitUntil: "networkidle0" });
 
-        await page.waitForFunction(() => {
-            const rows = document.querySelectorAll("#books-table-body tr");
-            return rows.length > 0;
-        }, { timeout: 5000 }).catch(() => {
-            console.log("No se cargaron los libros ");
-        });
+        // await page.waitForFunction(() => {
+        //     const rows = document.querySelectorAll("#books-table-body tr");
+        //     return rows.length > 0;
+        // }, { timeout: 5000 }).catch(() => {
+        //     console.log("No se cargaron los libros ");
+        // });
 
-        //await page.waitForSelector("#books-table-body");
+        await page.waitForSelector("#books-table-body");
         addToReport("Captura antes de verificar inserción " + `${FRONTEND_URL}/index.html`);
-        await capture(page, "03_after_create");
-
-        // const exists = await page.evaluate(() =>
-        //     [...document.querySelectorAll("td")].some(td => td.textContent.includes("Puppeteer Testing Book"))
-        // );
-
-        // if (!exists) throw new Error("El libro no se insertó correctamente");
-        // addToReport("(ok) Libro insertado correctamente");
-
-        // // 3. Actualizar ese libro
-        // addToReport("Actualizando el libro...");
-        // await page.click(`a[data-title="Puppeteer Testing Book"][data-action="edit"]`);
-
-        // await page.waitForSelector("#title");
-        // await page.evaluate(() => { document.querySelector("#title").value = ""; });
-        // await page.type("#title", "Puppeteer Testing Book - Updated");
-
-        // await capture(page, "04_before_update");
-
-        // await page.click("#btnUpdate");
-        // await wait(1500);
-
-        // await page.goto(FRONTEND_URL, { waitUntil: "networkidle0" });
-        // await capture(page, "05_after_update");
-
-        // const updatedExists = await page.evaluate(() =>
-        //     [...document.querySelectorAll("td")].some(td => td.textContent.includes("Updated"))
-        // );
-
-        // if (!updatedExists) throw new Error("El libro no se actualizó");
-        // addToReport("(ok) Libro actualizado correctamente");
-
-        // // 4. Eliminar el libro
-        // addToReport("Eliminando el libro...");
-        // await page.click(`a[data-title="Puppeteer Testing Book - Updated"][data-action="delete"]`);
-
-        // await wait(1500);
-        // await page.goto(FRONTEND_URL, { waitUntil: "networkidle0" });
-        // await capture(page, "06_after_delete");
-
-        // const deleted = await page.evaluate(() =>
-        //     ![...document.querySelectorAll("td")].some(td => td.textContent.includes("Updated"))
-        // );
-
-        // if (!deleted) throw new Error("El libro no fue eliminado");
-        // addToReport("(ok) Libro eliminado correctamente");
-
-        // 5. Finalizar reporte
+        await capture(page, "03_index_despues_de_insertar");
+        
+        // Finalizar reporte
         fs.writeFileSync(`${REPORT_DIR}/report.txt`, report);
-        addToReport("📘 Reporte generado en /reports/report.txt");
+        addToReport("Reporte generado en /reports/report.txt");
 
     } catch (err) {
         console.error("ERROR EN PRUEBAS:", err);
